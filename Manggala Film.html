@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Player M3U</title>
+    <title>Manggala Film</title>
     
     <meta name="theme-color" content="#090d16">
     <link rel="manifest" id="my-manifest">
@@ -19,7 +19,7 @@
     <header class="bg-slate-900 border-b border-slate-800 px-4 py-3 flex justify-between items-center sticky top-0 z-20">
         <div class="flex items-center gap-2">
             <span class="text-xl">🎬</span>
-            <h1 class="font-bold text-base tracking-tight text-amber-400">IPTV Film Player</h1>
+            <h1 class="font-bold text-base tracking-tight text-amber-400">Manggala Film</h1>
         </div>
         <div class="flex gap-2">
             <button id="btnInstall" class="hidden bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-md cursor-pointer">
@@ -100,8 +100,8 @@
     <script>
         // 1. Konfigurasi PWA Manifest & Install Prompt
         const manifestData = {
-            "name": "IPTV Film Player",
-            "short_name": "IPTV Player",
+            "name": "Manggala Film",
+            "short_name": "Manggala Film",
             "start_url": window.location.href,
             "display": "standalone",
             "background_color": "#090d16",
@@ -127,7 +127,7 @@
             }
         });
 
-                // 2. Data Playlist (Otomatis dari GitHub)
+        // 2. Data Playlist (Otomatis dari GitHub)
         let daftarFilm = [];
         // Gunakan link Raw standar yang lebih stabil
         const GITHUB_M3U_URL = "https://raw.githubusercontent.com/Mangx1/vod/main/Cobss";
@@ -140,13 +140,12 @@
             container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6 animate-pulse">Mengambil data dari GitHub...</p>`;
 
             try {
-                // Cukup gunakan timestamp untuk menembus cache, TANPA custom headers
+                // Cukup gunakan timestamp untuk menembus cache, TANPA custom headers yang diblokir CORS
                 const antiCacheURL = GITHUB_M3U_URL + "?t=" + new Date().getTime();
                 
                 const response = await fetch(antiCacheURL, {
                     cache: 'no-store'
                 });
-
                 
                 if (!response.ok) throw new Error("Gagal terhubung ke GitHub");
                 
