@@ -1,16 +1,13 @@
 #EXTM3U
 
-#EXTINF:-1 group-title="Film",Film 1
+#EXTINF:-1 tvg-name="Film 1" tvg-logo="https://www.themoviedb.org/movie/950028-the-invite" group-title="Film",Film 1
 https://bit.ly/41IRGtM
 
-#EXTINF:-1 group-title="Film",Film 2
+#EXTINF:-1 tvg-name="Film 2" tvg-logo="https://www.themoviedb.org/movie/1308767-young-washington" group-title="Film",Film 2
 https://bit.ly/308mTn9
 
-#EXTINF:-1 group-title="Film",Film 3
+#EXTINF:-1 tvg-name="Film 3" tvg-logo="https://www.themoviedb.org/movie/969681-spider-man-brand-new-day" group-title="Film",Film 3
 https://bit.ly/4c4MA19
 
-#EXTINF:-1 group-title="Film",Film 4
+#EXTINF:-1 tvg-name="Film 4" tvg-logo="https://www.themoviedb.org/movie/1315772-minions-monsters" group-title="Film",Film 4
 https://bit.ly/4sH1wYn
-
-#EXTINF:-1 group-title="Film",Film 5
-https://playcdn.de/zzz/LxEnJyoXBGwvPhk_N1UkK29KeXxzVCAEABU7ExtvYmBwHnl3cBw40eac476/43/480.m3u8
