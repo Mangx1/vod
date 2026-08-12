@@ -127,28 +127,26 @@
             }
         });
 
-        // 2. Data Playlist (Otomatis dari GitHub)
+                // 2. Data Playlist (Otomatis dari GitHub)
         let daftarFilm = [];
-        const GITHUB_M3U_URL = "https://raw.githubusercontent.com/Mangx1/vod/refs/heads/main/Cobss";
+        // Gunakan link Raw standar yang lebih stabil
+        const GITHUB_M3U_URL = "https://raw.githubusercontent.com/Mangx1/vod/main/Cobss";
 
         let currentHls = null;
 
-        // 3. Fungsi Menarik Data Playlist dari GitHub (dengan fitur Anti-Cache)
+        // 3. Fungsi Menarik Data Playlist dari GitHub
         async function muatPlaylistDariGitHub() {
             let container = document.getElementById('filmListContainer');
             container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6 animate-pulse">Mengambil data dari GitHub...</p>`;
 
             try {
-                // Menambahkan timestamp unik agar browser selalu mengunduh file terbaru (bypass cache)
+                // Cukup gunakan timestamp untuk menembus cache, TANPA custom headers
                 const antiCacheURL = GITHUB_M3U_URL + "?t=" + new Date().getTime();
                 
                 const response = await fetch(antiCacheURL, {
-                    cache: 'no-store', // Memaksa browser tidak menyimpan cache
-                    headers: {
-                        'Pragma': 'no-cache',
-                        'Cache-Control': 'no-cache'
-                    }
+                    cache: 'no-store'
                 });
+
                 
                 if (!response.ok) throw new Error("Gagal terhubung ke GitHub");
                 
