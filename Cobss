@@ -1,13 +1,7 @@
 #EXTM3U
 
-#EXTINF:-1 tvg-name="Agak Laen: Menyala Pantiku! (2025)" tvg-logo="https://vikingsgab.com/wp-content/uploads/2025/12/film-agak-laen-menyala-pantiku-2025-dutamovie21-lk21-768x1152.webp" group-title="Film",Agak Laen: Menyala Pantiku! (2025)
-https://sacdn.hakunaymatata.com/dash/7641217121724547184_0_0_1080_h265_368/index_web.mpd
+#EXTINF:-1 tvg-name="Agak Laen (2024)" tvg-logo="https://imgx.sonora.id/crop/0x0:0x0/360x240/filters:format(webp):quality(50)/photo/2024/01/31/ae8f6c08167a8957265addf264f2b1ca-20240131122121.jpg" group-title="Film",Agak Laen (2024)
+https://yjrnY6VWd3Y1oXUh.acek-cdn.com/hls2/01/08326/7yo6d941ly9h_n/master.m3u8?t=PzMU6UAZpfK7qQlf54gT9Jz5f9m4FpQCyKiWypTujgs&s=1786553771&e=129600&f=41630086&srv=LFDu7HStkKAt&i=0.4&sp=500&p1=LFDu7HStkKAt&p2=LFDu7HStkKAt&asn=18004
 
-#EXTINF:-1 tvg-name="The Matrix Reloaded" tvg-logo="https://media.themoviedb.org/t/p/w188_and_h282_face/bkkS61w94ZVMNVd8KEyyJl2tnY5.jpg" group-title="Film",The Matrix Reloaded
-https://sacdn.hakunaymatata.com/dash/5539572850610298200_0_0_1080_h265_855/index_web.mpd
-
-#EXTINF:-1 tvg-name="Spider-Man: Brand New Day (2026)" tvg-logo="https://media.themoviedb.org/t/p/w260_and_h390_face/iPOn6DinuVyLY17YM9mKuPofV08.jpg" group-title="Film",Spider-Man: Brand New Day (2026)
-https://live.playerp2p.online/hlsmod/p16-ad-site-sign-sg.tiktokcdn.com/rdeDWd65wRy2Pc8yXmuasg/kdv/6spnin6w/oy9wv9/tt/master.m3u8?v=1766826492
-
-#EXTINF:-1 tvg-name="The Last House (2026)" tvg-logo="https://vikingsgab.com/wp-content/uploads/2026/08/6JU7E8Vv2M11egkctWVOScxWR75.jpg" group-title="Film",The Last House (2026)
-https://pm21.p2pplay.pro/hlsmod/p16-ad-site-sign-sg.tiktokcdn.com/TfwDIi0PLNtGNhwJwD2Tbw/sc/fmg9ywcc/nmlv9g/tt/master.m3u8?v=1766826492
+#EXTINF:-1 tvg-name="Agak Laen: Menyala Pantiku! (2025)" tvg-logo="https://www.imdb.com/title/tt32351597/mediaviewer/rm1962060034/?ref_=ext_shr_lnk" group-title="Film",Agak Laen: Menyala Pantiku! (2025)
+https://dD2STLiWT0bC.dramiyos-cdn.com/hls2/01/08325/fyvzma6n851w_n/master.m3u8?t=CUJ70-S1vbO2SokEZEyTfz6NMX5JDNBo7Nz7OesaTLA&s=1786554033&e=129600&f=41627489&srv=lwe8cfmjpc03&i=0.4&sp=500&p1=lwe8cfmjpc03&p2=lwe8cfmjpc03&asn=18004
