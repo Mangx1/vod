@@ -1,9 +1,9 @@
 #EXTM3U
 
-#EXTINF:-1 tvg-name="Film 1" tvg-logo="https://www.themoviedb.org/movie/950028-the-invite" group-title="Film",Film 1
+#EXTINF:-1 tvg-name="Film 1" tvg-logo="https://media.themoviedb.org/t/p/w220_and_h330_face/nz7i42yhLIJ4ve9JKgM6NthoLHO.jpg" group-title="Film",Film 1
 https://bit.ly/41IRGtM
 
-#EXTINF:-1 tvg-name="Film 2" tvg-logo="https://www.themoviedb.org/movie/1308767-young-washington" group-title="Film",Film 2
+#EXTINF:-1 tvg-name="Film 2" tvg-logo="https://media.themoviedb.org/t/p/w220_and_h330_face/nz7i42yhLIJ4ve9JKgM6NthoLHO.jpg" group-title="Film",Film 2
 https://bit.ly/308mTn9
 
 #EXTINF:-1 tvg-name="Film 3" tvg-logo="https://www.themoviedb.org/movie/969681-spider-man-brand-new-day" group-title="Film",Film 3
