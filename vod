@@ -1,0 +1,40 @@
+#EXTM3U
+
+# ==================================================
+# MY VOD
+# ==================================================
+
+# --------------------------------------------------
+# FILM BARAT
+# --------------------------------------------------
+
+#EXTINF:-1 tvg-id="movie-001" tvg-name="Nama Film" tvg-logo="POSTER_URL" group-title="Film Barat",Nama Film (2026)
+STREAMING_URL
+
+# --------------------------------------------------
+# FILM INDONESIA
+# --------------------------------------------------
+
+#EXTINF:-1 tvg-id="movie-002" tvg-name="Nama Film Indonesia" tvg-logo="POSTER_URL" group-title="Film Indonesia",Nama Film Indonesia (2026)
+STREAMING_URL
+
+# --------------------------------------------------
+# FILM ASIA
+# --------------------------------------------------
+
+#EXTINF:-1 tvg-id="movie-003" tvg-name="Nama Film Asia" tvg-logo="POSTER_URL" group-title="Film Asia",Nama Film Asia (2026)
+STREAMING_URL
+
+# --------------------------------------------------
+# ANIMATION
+# --------------------------------------------------
+
+#EXTINF:-1 tvg-id="movie-004" tvg-name="Nama Animasi" tvg-logo="POSTER_URL" group-title="Animation",Nama Animasi (2026)
+STREAMING_URL
+
+# --------------------------------------------------
+# HORROR
+# --------------------------------------------------
+
+#EXTINF:-1 tvg-id="movie-005" tvg-name="Nama Film Horror" tvg-logo="POSTER_URL" group-title="Horror",Nama Film Horror (2026)
+STREAMING_URL
