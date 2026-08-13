@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pencari Film Aggregator</title>
-    <!-- Menggunakan Tailwind CSS untuk tampilan yang lebih poles dan modern -->
+    <title>Manggala Search</title>
+    
+    <!-- Meta tag & Manifest untuk fitur Install (PWA) -->
+    <meta name="theme-color" content="#090d16">
+    <link rel="manifest" id="my-manifest">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3334/3334886.png">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Kustomisasi Scrollbar agar terlihat rapi */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1e293b; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #ef4444; 
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #ef4444; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white">
@@ -28,10 +26,14 @@
             <span class="text-2xl">🍿</span>
             <h1 class="font-bold text-xl tracking-tight text-red-500">Manggala Search</h1>
         </div>
+        <!-- Tombol Install -->
+        <button id="btnInstall" class="hidden bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-[0_0_10px_rgba(220,38,38,0.3)] cursor-pointer">
+            📥 Install App
+        </button>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 w-full max-w-3xl mx-auto p-6 flex flex-col mt-8">
+    <main class="flex-1 w-full max-w-3xl mx-auto p-6 flex flex-col mt-4 md:mt-8">
         
         <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
             <h2 class="text-center text-lg font-semibold text-slate-300 mb-6">Pencari Film Terpadu</h2>
@@ -51,7 +53,7 @@
                     
                     <!-- Kotak Saran Pencarian (Dropdown) -->
                     <div id="kotakSaran" class="absolute w-full mt-2 bg-slate-800 border border-slate-700 rounded-xl shadow-2xl overflow-hidden z-50 hidden max-h-60 overflow-y-auto">
-                        <!-- Saran akan muncul di sini via JavaScript -->
+                        <!-- Saran akan muncul di sini -->
                     </div>
                 </div>
                 
@@ -72,7 +74,36 @@
     </main>
 
     <script>
-        // Database Mini untuk Saran Pencarian (Bisa Anda tambah sendiri nanti)
+        // 1. Konfigurasi PWA Manifest & Install Prompt
+        const manifestData = {
+            "name": "Manggala Search",
+            "short_name": "Manggala Search",
+            "start_url": window.location.href,
+            "display": "standalone",
+            "background_color": "#090d16",
+            "theme_color": "#090d16",
+            "icons": [{ "src": "https://cdn-icons-png.flaticon.com/512/3334/3334886.png", "sizes": "512x512", "type": "image/png" }]
+        };
+        const blobManifest = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+        document.getElementById('my-manifest').setAttribute('href', URL.createObjectURL(blobManifest));
+
+        let deferredPrompt;
+        const btnInstall = document.getElementById('btnInstall');
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            btnInstall.classList.remove('hidden');
+        });
+        btnInstall.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') btnInstall.classList.add('hidden');
+                deferredPrompt = null;
+            }
+        });
+
+        // 2. Database Mini untuk Saran Pencarian
         const databaseFilm = [
             "The Matrix", "The Guardian", "The Lord of the Rings", "The Dark Knight", 
             "The Avengers", "The Godfather", "The Shawshank Redemption", "The Terminator",
@@ -86,7 +117,7 @@
             "Fast and Furious", "Mission Impossible", "James Bond", "John Wick", "Transformers"
         ];
 
-        // Daftar link website[span_0](start_span)[span_0](end_span)
+        // 3. Daftar link website
         const daftarWeb = [
             { nama: "PusatFilm21", url: "https://v4.pusatfilm21info.net/?s=%s" },
             { nama: "NontonFilm", url: "https://tv.nontonfilm.red/?s=%s" },
@@ -100,19 +131,18 @@
             { nama: "KlikXXI", url: "https://klikxxi.shop/?s=%s" }
         ];
 
-        // Fitur Autocomplete / Saran Pencarian
+        // 4. Fitur Autocomplete / Saran Pencarian
         function tampilkanSaran() {
             const input = document.getElementById("inputJudul").value.toLowerCase();
             const kotakSaran = document.getElementById("kotakSaran");
             
-            kotakSaran.innerHTML = ""; // Bersihkan saran sebelumnya
+            kotakSaran.innerHTML = ""; 
 
             if (input.trim() === "") {
                 kotakSaran.classList.add("hidden");
                 return;
             }
 
-            // Filter database berdasarkan ketikan pengguna
             const hasilFilter = databaseFilm.filter(film => film.toLowerCase().includes(input));
 
             if (hasilFilter.length > 0) {
@@ -123,7 +153,6 @@
                     item.className = "px-4 py-3 hover:bg-slate-700 text-slate-300 hover:text-white cursor-pointer transition-colors border-b border-slate-700/50 last:border-0";
                     item.innerText = film;
                     
-                    // Jika saran diklik, masukkan ke input dan langsung cari
                     item.onclick = function() {
                         document.getElementById("inputJudul").value = film;
                         kotakSaran.classList.add("hidden");
@@ -145,14 +174,14 @@
             }
         });
 
-        // Fungsi Pencarian Utama[span_1](start_span)[span_1](end_span)
+        // 5. Fungsi Pencarian Utama
         function cariFilm() {
             const judul = document.getElementById("inputJudul").value;
             const tempatHasil = document.getElementById("tempatHasil");
             const kotakSaran = document.getElementById("kotakSaran");
             
-            kotakSaran.classList.add("hidden"); // Tutup saran saat mencari
-            tempatHasil.innerHTML = ""; // Bersihkan hasil sebelumnya[span_2](start_span)[span_2](end_span)
+            kotakSaran.classList.add("hidden"); 
+            tempatHasil.innerHTML = ""; 
 
             if (judul.trim() === "") {
                 tempatHasil.innerHTML = `
@@ -162,10 +191,8 @@
                 return;
             }
 
-            // Ubah spasi menjadi format URL yang aman[span_3](start_span)[span_3](end_span)
             const judulFormat = encodeURIComponent(judul);
 
-            // Buat daftar link untuk setiap website[span_4](start_span)[span_4](end_span)
             daftarWeb.forEach(web => {
                 const linkPencarian = web.url.replace("%s", judulFormat);
                 
@@ -182,7 +209,6 @@
             });
         }
 
-        // Fungsi agar bisa menekan 'Enter' di keyboard untuk langsung mencari[span_5](start_span)[span_5](end_span)
         function handleEnter(event) {
             if (event.key === 'Enter') {
                 cariFilm();
