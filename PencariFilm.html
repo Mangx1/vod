@@ -19,26 +19,36 @@
 
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white">
 
+    <!-- HEADER -->
     <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center shadow-lg sticky top-0 z-20">
         <div class="flex items-center gap-3">
             <span class="text-2xl">🍿</span>
             <h1 class="font-bold text-xl tracking-tight text-red-500">Manggala Search</h1>
         </div>
 
-        <button id="btnInstall"
-            class="hidden bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-[0_0_10px_rgba(220,38,38,0.3)] cursor-pointer">
-            📥 Install App
-        </button>
+        <div class="flex items-center gap-3">
+            <button onclick="bukaModalWatchlist()" 
+                class="bg-slate-800 hover:bg-slate-700 text-yellow-400 text-xs font-bold px-3 py-2 rounded-lg transition-all border border-slate-700 flex items-center gap-1.5 cursor-pointer">
+                ⭐ Watchlist (<span id="jumlahWatchlist">0</span>)
+            </button>
+
+            <button id="btnInstall"
+                class="hidden bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-[0_0_10px_rgba(220,38,38,0.3)] cursor-pointer">
+                📥 Install App
+            </button>
+        </div>
     </header>
 
-    <main class="flex-1 w-full max-w-3xl mx-auto p-6 flex flex-col mt-4 md:mt-8">
+    <!-- MAIN WORKSPACE -->
+    <main class="flex-1 w-full max-w-3xl mx-auto p-4 md:p-6 flex flex-col mt-2 md:mt-4">
 
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-6 shadow-2xl">
 
-            <h2 class="text-center text-lg font-semibold text-slate-300 mb-6">
-                Pencari Film Terpadu
+            <h2 class="text-center text-lg font-semibold text-slate-300 mb-4">
+                Pencari Film & Subtitle Terpadu
             </h2>
 
+            <!-- FORM PENCARIAN -->
             <div class="relative flex flex-col sm:flex-row gap-3 mb-2">
                 <div class="relative flex-1">
                     <input
@@ -63,12 +73,27 @@
                 </button>
             </div>
 
-            <p class="text-xs text-slate-500 text-center mt-2 mb-6">
-                Cari satu judul, temukan di berbagai sumber.
-            </p>
+            <!-- RIWAYAT PENCARIAN TERAKHIR -->
+            <div id="tempatRiwayat" class="flex flex-wrap items-center gap-2 mb-4 mt-2"></div>
 
-            <!-- SRT DI ATAS -->
-            <section class="mb-7">
+            <!-- TAB FILTER KATEGORI -->
+            <div class="flex border-b border-slate-800 mb-6 gap-2 overflow-x-auto pb-1">
+                <button onclick="setKategori('semua')" id="tab-semua" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-red-600 text-white transition-all">Semua</button>
+                <button onclick="setKategori('film')" id="tab-film" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-all">🎬 Film</button>
+                <button onclick="setKategori('anime')" id="tab-anime" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-all">🎌 Anime</button>
+                <button onclick="setKategori('srt')" id="tab-srt" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-all">📝 Subtitle</button>
+            </div>
+
+            <!-- BAR ACTION TAMBAH WATCHLIST -->
+            <div id="barWatchlist" class="hidden bg-slate-950/80 border border-slate-800 p-3 rounded-xl mb-6 flex justify-between items-center">
+                <span id="labelJudulAktif" class="text-sm text-slate-300 font-medium"></span>
+                <button id="btnTambahWatchlist" onclick="tambahKeWatchlist()" class="bg-yellow-500/10 hover:bg-yellow-500 text-yellow-400 hover:text-slate-950 border border-yellow-500/30 text-xs font-bold px-3 py-1.5 rounded-lg transition-all">
+                    ⭐ Simpan ke Watchlist
+                </button>
+            </div>
+
+            <!-- HASIL SRT -->
+            <section id="seksiSRT" class="mb-7">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="text-lg">📝</span>
                     <h3 class="font-bold text-slate-200">Pencarian SRT</h3>
@@ -83,11 +108,11 @@
                 </div>
             </section>
 
-            <!-- FILM -->
-            <section>
+            <!-- HASIL FILM -->
+            <section id="seksiFilm">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="text-lg">🎬</span>
-                    <h3 class="font-bold text-slate-200">Pencarian Film</h3>
+                    <h3 class="font-bold text-slate-200">Pencarian Film & Anime</h3>
                 </div>
 
                 <div id="tempatHasil" class="flex flex-col gap-3">
@@ -97,8 +122,24 @@
         </div>
     </main>
 
+    <!-- MODAL WATCHLIST -->
+    <div id="modalWatchlist" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl flex flex-col gap-4 max-h-[80vh]">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="font-bold text-slate-100 flex items-center gap-2">⭐ Watchlist Saya</h3>
+                <button onclick="tutupModalWatchlist()" class="text-slate-400 hover:text-white font-bold text-lg">✕</button>
+            </div>
+            
+            <div id="isiWatchlist" class="flex flex-col gap-2 overflow-y-auto flex-1">
+                <p class="text-slate-500 text-xs text-center py-6">Belum ada judul yang disimpan.</p>
+            </div>
+
+            <button onclick="tutupModalWatchlist()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-sm transition-all">Tutup</button>
+        </div>
+    </div>
+
     <script>
-        // PWA
+        // PWA Setup
         const manifestData = {
             "name": "Manggala Search",
             "short_name": "Manggala Search",
@@ -113,13 +154,8 @@
             }]
         };
 
-        const blobManifest = new Blob(
-            [JSON.stringify(manifestData)],
-            { type: "application/json" }
-        );
-
-        document.getElementById("my-manifest")
-            .setAttribute("href", URL.createObjectURL(blobManifest));
+        const blobManifest = new Blob([JSON.stringify(manifestData)], { type: "application/json" });
+        document.getElementById("my-manifest").setAttribute("href", URL.createObjectURL(blobManifest));
 
         let deferredPrompt;
         const btnInstall = document.getElementById("btnInstall");
@@ -132,19 +168,13 @@
 
         btnInstall.addEventListener("click", async () => {
             if (!deferredPrompt) return;
-
             deferredPrompt.prompt();
-
             const { outcome } = await deferredPrompt.userChoice;
-
-            if (outcome === "accepted") {
-                btnInstall.classList.add("hidden");
-            }
-
+            if (outcome === "accepted") btnInstall.classList.add("hidden");
             deferredPrompt = null;
         });
 
-        // Database saran
+        // Database Saran Judul
         const databaseFilm = [
             "The Matrix", "The Guardian", "The Lord of the Rings", "The Dark Knight",
             "The Avengers", "The Godfather", "The Shawshank Redemption", "The Terminator",
@@ -158,30 +188,33 @@
             "Fast and Furious", "Mission Impossible", "James Bond", "John Wick", "Transformers"
         ];
 
-        // PROVIDER FILM — dipertahankan seperti HTML asli
+        // Provider Film & Anime
         const daftarWeb = [
-            { nama: "PusatFilm21", url: "https://v4.pusatfilm21info.net/?s=%s" },
-            { nama: "NontonFilm", url: "https://tv.nontonfilm.red/?s=%s" },
-            { nama: "Server 178.128", url: "http://178.128.91.191/?s=%s" },
-            { nama: "XDMovies", url: "https://top.xdmovies.wtf/?s=%s" },
-            { nama: "UHDMovies", url: "https://uhdmovies.autos/?s=%s" },
-            { nama: "Samehadaku", url: "https://v2.samehadaku.how/?s=%s" },
-            { nama: "Ngefilm", url: "https://new39.ngefilm.site/?s=%s" },
-            { nama: "IDLIX", url: "https://z2.idlixku.com/?s=%s" },
-            { nama: "ComeLook", url: "https://comelook.org/?s=%s" },
-            { nama: "KlikXXI", url: "https://klikxxi.shop/?s=%s" }
+            { nama: "PusatFilm21", url: "https://v4.pusatfilm21info.net/?s=%s", kategori: "film" },
+            { nama: "NontonFilm", url: "https://tv.nontonfilm.red/?s=%s", kategori: "film" },
+            { nama: "Server 178.128", url: "http://178.128.91.191/?s=%s", kategori: "film" },
+            { nama: "XDMovies", url: "https://top.xdmovies.wtf/?s=%s", kategori: "film" },
+            { nama: "UHDMovies", url: "https://uhdmovies.autos/?s=%s", kategori: "film" },
+            { nama: "Samehadaku", url: "https://v2.samehadaku.how/?s=%s", kategori: "anime" },
+            { nama: "Ngefilm", url: "https://new39.ngefilm.site/?s=%s", kategori: "film" },
+            { nama: "IDLIX", url: "https://z2.idlixku.com/?s=%s", kategori: "film" },
+            { nama: "ComeLook", url: "https://comelook.org/?s=%s", kategori: "film" },
+            { nama: "KlikXXI", url: "https://klikxxi.shop/?s=%s", kategori: "film" }
         ];
 
-        // PROVIDER SRT
+        // Provider SRT
         const daftarSRT = [
             { nama: "SubDL", url: "https://subdl.com/search/%s" },
             { nama: "SubSource", url: "https://subsource.net/search?q=%s" }
         ];
 
+        let kategoriAktif = 'semua';
+        let judulSaatIni = '';
+
+        // Tampilkan Saran
         function tampilkanSaran() {
             const input = document.getElementById("inputJudul").value.toLowerCase();
             const kotakSaran = document.getElementById("kotakSaran");
-
             kotakSaran.innerHTML = "";
 
             if (input.trim() === "") {
@@ -189,27 +222,19 @@
                 return;
             }
 
-            const hasilFilter = databaseFilm.filter(
-                film => film.toLowerCase().includes(input)
-            );
+            const hasilFilter = databaseFilm.filter(film => film.toLowerCase().includes(input));
 
             if (hasilFilter.length > 0) {
                 kotakSaran.classList.remove("hidden");
-
                 hasilFilter.forEach(film => {
                     const item = document.createElement("div");
-
-                    item.className =
-                        "px-4 py-3 hover:bg-slate-700 text-slate-300 hover:text-white cursor-pointer transition-colors border-b border-slate-700/50 last:border-0";
-
+                    item.className = "px-4 py-3 hover:bg-slate-700 text-slate-300 hover:text-white cursor-pointer transition-colors border-b border-slate-700/50 last:border-0 text-sm";
                     item.innerText = film;
-
                     item.onclick = function() {
                         document.getElementById("inputJudul").value = film;
                         kotakSaran.classList.add("hidden");
                         cariFilm();
                     };
-
                     kotakSaran.appendChild(item);
                 });
             } else {
@@ -220,90 +245,10 @@
         document.addEventListener("click", function(event) {
             const kotakSaran = document.getElementById("kotakSaran");
             const input = document.getElementById("inputJudul");
-
             if (event.target !== input && !kotakSaran.contains(event.target)) {
                 kotakSaran.classList.add("hidden");
             }
         });
-
-        function cariFilm() {
-            const judul = document.getElementById("inputJudul").value.trim();
-
-            const tempatHasil = document.getElementById("tempatHasil");
-            const tempatSRT = document.getElementById("tempatSRT");
-            const kotakSaran = document.getElementById("kotakSaran");
-
-            kotakSaran.classList.add("hidden");
-
-            tempatHasil.innerHTML = "";
-            tempatSRT.innerHTML = "";
-
-            if (judul === "") {
-                const pesan = `
-                    <div class="bg-amber-500/10 border border-amber-500/20 text-amber-500 px-4 py-3 rounded-xl text-center text-sm">
-                        Silakan masukkan judul film terlebih dahulu.
-                    </div>
-                `;
-
-                tempatSRT.innerHTML = pesan;
-                tempatHasil.innerHTML = pesan;
-                return;
-            }
-
-            const judulFormat = encodeURIComponent(judul);
-
-            // SRT DITAMPILKAN TERLEBIH DAHULU
-            daftarSRT.forEach(srt => {
-                const linkPencarian = srt.url.replace("%s", judulFormat);
-
-                const itemDiv = document.createElement("div");
-
-                itemDiv.className =
-                    "bg-slate-950/50 hover:bg-slate-800 border border-slate-800/80 p-4 rounded-xl flex justify-between items-center border-l-4 border-l-blue-500 transition-all group";
-
-                itemDiv.innerHTML = `
-                    <span class="text-slate-300 font-medium group-hover:text-white transition-colors">
-                        Cari SRT di <strong class="text-white">${srt.nama}</strong>
-                    </span>
-
-                    <a
-                        href="${linkPencarian}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-sm font-bold transition-all border border-blue-500/20 hover:border-blue-500 whitespace-nowrap">
-                        Cari SRT ↗
-                    </a>
-                `;
-
-                tempatSRT.appendChild(itemDiv);
-            });
-
-            // FILM — konfigurasi asli dipertahankan
-            daftarWeb.forEach(web => {
-                const linkPencarian = web.url.replace("%s", judulFormat);
-
-                const itemDiv = document.createElement("div");
-
-                itemDiv.className =
-                    "bg-slate-950/50 hover:bg-slate-800 border border-slate-800/80 p-4 rounded-xl flex justify-between items-center border-l-4 border-l-red-500 transition-all group";
-
-                itemDiv.innerHTML = `
-                    <span class="text-slate-300 font-medium group-hover:text-white transition-colors">
-                        Cari di <strong class="text-white">${web.nama}</strong>
-                    </span>
-
-                    <a
-                        href="${linkPencarian}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white px-4 py-2 rounded-lg text-sm font-bold transition-all border border-red-500/20 hover:border-red-500 whitespace-nowrap">
-                        Buka Web ↗
-                    </a>
-                `;
-
-                tempatHasil.appendChild(itemDiv);
-            });
-        }
 
         function handleEnter(event) {
             if (event.key === "Enter") {
@@ -311,6 +256,213 @@
                 document.getElementById("kotakSaran").classList.add("hidden");
             }
         }
+
+        // Cari Film
+        function cariFilm(judulManual) {
+            const inputEl = document.getElementById("inputJudul");
+            if (judulManual) inputEl.value = judulManual;
+
+            const judul = inputEl.value.trim();
+            document.getElementById("kotakSaran").classList.add("hidden");
+
+            if (judul === "") return;
+
+            judulSaatIni = judul;
+            simpanRiwayat(judul);
+            renderRiwayat();
+
+            // Tampilkan Bar Watchlist
+            document.getElementById("barWatchlist").classList.remove("hidden");
+            document.getElementById("labelJudulAktif").innerText = `Hasil pencarian: "${judul}"`;
+
+            renderHasil();
+        }
+
+        // Render Hasil Berdasarkan Kategori
+        function renderHasil() {
+            const tempatHasil = document.getElementById("tempatHasil");
+            const tempatSRT = document.getElementById("tempatSRT");
+            const seksiSRT = document.getElementById("seksiSRT");
+            const seksiFilm = document.getElementById("seksiFilm");
+
+            tempatHasil.innerHTML = "";
+            tempatSRT.innerHTML = "";
+
+            const judulFormat = encodeURIComponent(judulSaatIni);
+
+            // Filter Tampilan Seksi
+            if (kategoriAktif === 'srt') {
+                seksiFilm.classList.add("hidden");
+                seksiSRT.classList.remove("hidden");
+            } else if (kategoriAktif === 'anime' || kategoriAktif === 'film') {
+                seksiSRT.classList.add("hidden");
+                seksiFilm.classList.remove("hidden");
+            } else {
+                seksiSRT.classList.remove("hidden");
+                seksiFilm.classList.remove("hidden");
+            }
+
+            // Render SRT
+            if (kategoriAktif === 'semua' || kategoriAktif === 'srt') {
+                daftarSRT.forEach(srt => {
+                    const linkPencarian = srt.url.replace("%s", judulFormat);
+                    const itemDiv = document.createElement("div");
+                    itemDiv.className = "bg-slate-950/50 hover:bg-slate-800 border border-slate-800/80 p-4 rounded-xl flex justify-between items-center border-l-4 border-l-blue-500 transition-all group";
+                    itemDiv.innerHTML = `
+                        <span class="text-slate-300 text-sm font-medium group-hover:text-white transition-colors">
+                            Cari SRT di <strong class="text-white">${srt.nama}</strong>
+                        </span>
+                        <a href="${linkPencarian}" target="_blank" rel="noopener noreferrer"
+                            class="bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all border border-blue-500/20 hover:border-blue-500 whitespace-nowrap">
+                            Cari SRT ↗
+                        </a>
+                    `;
+                    tempatSRT.appendChild(itemDiv);
+                });
+            }
+
+            // Render Film & Anime
+            const filteredWeb = daftarWeb.filter(web => {
+                if (kategoriAktif === 'anime') return web.kategori === 'anime';
+                if (kategoriAktif === 'film') return web.kategori === 'film';
+                return true;
+            });
+
+            filteredWeb.forEach(web => {
+                const linkPencarian = web.url.replace("%s", judulFormat);
+                const itemDiv = document.createElement("div");
+                const borderColor = web.kategori === 'anime' ? 'border-l-purple-500' : 'border-l-red-500';
+
+                itemDiv.className = `bg-slate-950/50 hover:bg-slate-800 border border-slate-800/80 p-4 rounded-xl flex justify-between items-center border-l-4 ${borderColor} transition-all group`;
+                itemDiv.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-slate-300 text-sm font-medium group-hover:text-white transition-colors">
+                            Cari di <strong class="text-white">${web.nama}</strong>
+                        </span>
+                        ${web.kategori === 'anime' ? '<span class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/30 px-1.5 py-0.5 rounded">ANIME</span>' : ''}
+                    </div>
+                    <a href="${linkPencarian}" target="_blank" rel="noopener noreferrer"
+                        class="bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white px-4 py-2 rounded-lg text-xs font-bold transition-all border border-red-500/20 hover:border-red-500 whitespace-nowrap">
+                        Buka Web ↗
+                    </a>
+                `;
+                tempatHasil.appendChild(itemDiv);
+            });
+        }
+
+        // Set Tab Kategori
+        function setKategori(kat) {
+            kategoriAktif = kat;
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                btn.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-all";
+            });
+
+            const tabAktif = document.getElementById(`tab-${kat}`);
+            if (tabAktif) {
+                tabAktif.className = "tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-red-600 text-white transition-all";
+            }
+
+            if (judulSaatIni) renderHasil();
+        }
+
+        // System Riwayat Pencarian (LocalStorage)
+        function simpanRiwayat(judul) {
+            let riwayat = JSON.parse(localStorage.getItem("manggala_riwayat") || "[]");
+            riwayat = riwayat.filter(item => item.toLowerCase() !== judul.toLowerCase());
+            riwayat.unshift(judul);
+            if (riwayat.length > 5) riwayat.pop();
+            localStorage.setItem("manggala_riwayat", JSON.stringify(riwayat));
+        }
+
+        function renderRiwayat() {
+            const tempat = document.getElementById("tempatRiwayat");
+            let riwayat = JSON.parse(localStorage.getItem("manggala_riwayat") || "[]");
+
+            tempat.innerHTML = "";
+            if (riwayat.length === 0) return;
+
+            const label = document.createElement("span");
+            label.className = "text-xs text-slate-500 font-semibold mr-1";
+            label.innerText = "Terakhir dicari:";
+            tempat.appendChild(label);
+
+            riwayat.forEach(item => {
+                const tag = document.createElement("button");
+                tag.className = "text-xs bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white px-2.5 py-1 rounded-md border border-slate-700/60 transition-all cursor-pointer";
+                tag.innerText = item;
+                tag.onclick = () => cariFilm(item);
+                tempat.appendChild(tag);
+            });
+        }
+
+        // System Watchlist (LocalStorage)
+        function getWatchlist() {
+            return JSON.parse(localStorage.getItem("manggala_watchlist") || "[]");
+        }
+
+        function updateJumlahWatchlistUI() {
+            document.getElementById("jumlahWatchlist").innerText = getWatchlist().length;
+        }
+
+        function tambahKeWatchlist() {
+            if (!judulSaatIni) return;
+            let list = getWatchlist();
+            if (!list.includes(judulSaatIni)) {
+                list.push(judulSaatIni);
+                localStorage.setItem("manggala_watchlist", JSON.stringify(list));
+                updateJumlahWatchlistUI();
+                alert(`"${judulSaatIni}" berhasil ditambahkan ke Watchlist!`);
+            } else {
+                alert(`"${judulSaatIni}" sudah ada di Watchlist kamu.`);
+            }
+        }
+
+        function hapusDariWatchlist(judul) {
+            let list = getWatchlist().filter(item => item !== judul);
+            localStorage.setItem("manggala_watchlist", JSON.stringify(list));
+            updateJumlahWatchlistUI();
+            renderIsiWatchlistModal();
+        }
+
+        function bukaModalWatchlist() {
+            renderIsiWatchlistModal();
+            document.getElementById("modalWatchlist").classList.remove("hidden");
+        }
+
+        function tutupModalWatchlist() {
+            document.getElementById("modalWatchlist").classList.add("hidden");
+        }
+
+        function renderIsiWatchlistModal() {
+            const container = document.getElementById("isiWatchlist");
+            const list = getWatchlist();
+
+            container.innerHTML = "";
+            if (list.length === 0) {
+                container.innerHTML = `<p class="text-slate-500 text-xs text-center py-6">Belum ada judul yang disimpan.</p>`;
+                return;
+            }
+
+            list.forEach(judul => {
+                const item = document.createElement("div");
+                item.className = "bg-slate-950 border border-slate-800 p-3 rounded-xl flex justify-between items-center";
+                item.innerHTML = `
+                    <span class="text-slate-200 text-sm font-medium cursor-pointer hover:text-red-400 transition-colors" onclick="tutupModalWatchlist(); cariFilm('${judul}');">
+                        ${judul}
+                    </span>
+                    <button onclick="hapusDariWatchlist('${judul}')" class="text-xs text-red-500 hover:text-red-400 p-1">
+                        🗑️
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // Inisialisasi awal
+        document.addEventListener("DOMContentLoaded", () => {
+            renderRiwayat();
+            updateJumlahWatchlistUI();
+        });
     </script>
 </body>
 </html>
