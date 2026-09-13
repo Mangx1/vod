@@ -1,0 +1,25 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-name="Harry Potter and the Philosopher's Stone" tvg-logo="https://image.tmdb.org/t/p/w500/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg" group-title="Film",Harry Potter and the Philosopher's Stone
+https://api.subsource.net/v1/subtitle/download/63dc1b172f34d5733bc2da5fb98980e1a706d52d4555967268e2736d8386c807
+
+#EXTINF:-1 tvg-name="Moana" tvg-logo="https://image.tmdb.org/t/p/w500/zKVgiv5qHCvCLT4A2ymJi5QeXDH.jpg" group-title="Film",Moana
+https://pixeldrain.dev/api/file/5WGZm3aE?download
+
+#EXTINF:-1 tvg-name="Stand by Me Doraemon 2" tvg-logo="https://image.tmdb.org/t/p/w500/vBv8iOFPLnXmtELUjcFc7OKHsR4.jpg" group-title="Film",Stand by Me Doraemon 2
+https://pixeldrain.dev/api/file/3nu3djxB?download
+
+#EXTINF:-1 tvg-name="Mayday" tvg-logo="https://image.tmdb.org/t/p/w500/hVXjX1jLZ1ljFSNGXpjJfbTUOa7.jpg" group-title="Film",Mayday
+https://pixeldrain.dev/api/file/8LQ4YYum?download
+
+#EXTINF:-1 tvg-name="The Mandalorian and Grogu" tvg-logo="https://image.tmdb.org/t/p/w500/7GV5rrUJf0BRUhoh2cyFoeNthlQ.jpg" group-title="Film",The Mandalorian and Grogu
+https://pixeldrain.dev/api/file/qzNoQdrE?download
+
+#EXTINF:-1 tvg-name="The Runner" tvg-logo="https://image.tmdb.org/t/p/w500/uxCaBoYXsDC4A0SqTm3SISj0OwK.jpg" group-title="Film",The Runner
+https://pixeldrain.dev/api/file/jMiZttkR?download
+
+#EXTINF:-1 tvg-name="Badland" tvg-logo="https://image.tmdb.org/t/p/w500/217ddlMrnXll436baw7y5ERmz3x.jpg" group-title="Film",Badland
+https://pixeldrain.dev/api/file/8sgHLsFj?download
+
+#EXTINF:-1 tvg-name="The Whisper Man" tvg-logo="https://image.tmdb.org/t/p/w500/6UqflU8Qqkz7Dq4swJPqs0ZJjY4.jpg" group-title="Film",The Whisper Man
+https://pixeldrain.dev/api/file/pFbrYcpb?download
