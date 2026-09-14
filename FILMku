@@ -56,3 +56,6 @@ https://pixeldrain.dev/api/file/TK6S5ZJA?download
 
 #EXTINF:-1 tvg-name="The Shawshank Redemption (1994)" tvg-logo="https://image.tmdb.org/t/p/w780/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" group-title="Film",The Shawshank Redemption (1994)
 https://pixeldrain.dev/api/file/GoBe7kFe?download
+
+#EXTINF:-1 tvg-name="The Dark Knight (2008)" tvg-logo="https://image.tmdb.org/t/p/w780/qJ2tW6WMUDux911r6m7haRef0WH.jpg" group-title="Film",The Dark Knight (2008)
+https://pixeldrain.dev/api/file/RSC21Mm4?download
