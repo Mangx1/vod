@@ -53,3 +53,6 @@ https://pixeldrain.dev/api/file/sLmxwbAS?download
 
 #EXTINF:-1 tvg-name="Blitz (2011)" tvg-logo="https://image.tmdb.org/t/p/w500/qjqmhhc7uLub22mhu4V6DjOBwXM.jpg" group-title="Film",Blitz (2011)
 https://pixeldrain.dev/api/file/TK6S5ZJA?download
+
+#EXTINF:-1 tvg-name="The Shawshank Redemption (1994)" tvg-logo="https://image.tmdb.org/t/p/w780/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg" group-title="Film",The Shawshank Redemption (1994)
+https://pixeldrain.dev/api/file/GoBe7kFe?download
